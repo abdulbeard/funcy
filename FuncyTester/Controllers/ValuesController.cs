@@ -20,15 +20,16 @@ namespace FuncyTester.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<string>> Get(int id)
         {
-            return "value";
+            return (await Class1.Evaluate<double>(new List<string> {"System.Math" }, new List<string> { "System.Math"}, "System.Math.Sqrt(2 + 2)", null)).ToString();
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<object>> Post([FromBody] FuncDef def)
         {
+            return (await Class1.Evaluate<object>(def.Imports, def.References, def.Code, def.Globals));
         }
 
         // PUT api/values/5
@@ -42,5 +43,13 @@ namespace FuncyTester.Controllers
         public void Delete(int id)
         {
         }
+    }
+
+    public class FuncDef
+    {
+        public List<string> References { get; set; }
+        public List<string> Imports { get; set; }
+        public string Code { get; set; }
+        public object Globals { get; set; }
     }
 }
