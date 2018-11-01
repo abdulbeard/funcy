@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,12 +16,19 @@ namespace funcy
             return result;
         }
 
-        public static async Task<T> Evaluate<T>(List<string> imports, List<string> references, string code, object globals)
+        public static async Task<T> Evaluate<T>(List<string> imports, List<string> references, string code, Input globals)
         {
             var scriptOptions = ScriptOptions.Default.AddImports(imports);
             scriptOptions.AddReferences(references);
-            var result = await CSharpScript.EvaluateAsync<T>(code, scriptOptions, globals, typeof(object));
+            var result = await CSharpScript.EvaluateAsync<T>(code, scriptOptions, globals, typeof(Input));
             return result;
         }
+    }
+
+    public class Input
+    {
+        public string Abdul { get; set; }
+        public bool IsTrue { get; set; }
+        public int Age { get; set; }
     }
 }

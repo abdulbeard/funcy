@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using funcy;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace FuncyTester.Controllers
 {
@@ -50,6 +51,6 @@ namespace FuncyTester.Controllers
         public List<string> References { get; set; }
         public List<string> Imports { get; set; }
         public string Code { get; set; }
-        public object Globals { get; set; }
+        public Input Globals { get; set; }
     }
 }
