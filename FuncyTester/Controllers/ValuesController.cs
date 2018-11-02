@@ -33,6 +33,22 @@ namespace FuncyTester.Controllers
             return (await Class1.Evaluate<object>(def.Imports, def.References, def.Code, def.Globals));
         }
 
+        [HttpPost]
+        [Route("execute/{funcName}")]
+        public async Task<ActionResult<object>> Post([FromBody] object globals, string funcName)
+        {
+            var defs = FuncDefs.Default;
+            object result = null;
+            defs?.ForEach(x =>
+            {
+                if (x.Name == funcName)
+                {
+                    result = Class1.EvaluateFromFuncDef(x, globals);
+                }
+            });
+            return result;
+        }
+
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
