@@ -29,9 +29,8 @@ namespace funcy
             if (input.Name == FuncDefs.SalesTaxCalculator.Name)
             {
                 var globalsInterpreted = Utils.ChangeType<object, CalculateTaxesInput>(globals);
-
                 var scriptOptions = ScriptOptions.Default.AddImports(input.Imports);
-                scriptOptions.AddReferences(input.References);
+                scriptOptions = scriptOptions.AddReferences(input.References);
                 var result = await CSharpScript.EvaluateAsync<CalculateTaxesOutput>(input.Code, scriptOptions, globalsInterpreted, typeof(CalculateTaxesInput));
                 return result;
             }
@@ -52,8 +51,9 @@ namespace funcy
         public static FuncDef<CalculateTaxesInput, CalculateTaxesOutput> SalesTaxCalculator => new FuncDef<CalculateTaxesInput, CalculateTaxesOutput>
         {
             //Code = "return Subtotal * (1 + (TaxPercentage / 100))",
-            Code = "return new funcy.CalculateTaxesOutput() { Result = Subtotal * (1 + (TaxPercentage / 100))};",
-            Imports = new List<string>() { "funcy" },
+            //Code = "public class CalculateTaxesOutput{public double Result {get;set;}} var x = Subtotal; Subtotal = 34545.00;return new CalculateTaxesOutput{ Result = x * (1 + (TaxPercentage / 100))};",
+            Code = "var x = Subtotal; Subtotal = 34545.00;return new funcy.CalculateTaxesOutput{ Result = x * (1 + (TaxPercentage / 100))};",
+            Imports = new List<string>() { },
             InputClassDefinition = new CalculateTaxesInput
             {
                 Subtotal = 45.454545,

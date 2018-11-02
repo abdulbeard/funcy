@@ -39,11 +39,11 @@ namespace FuncyTester.Controllers
         {
             var defs = FuncDefs.Default;
             object result = null;
-            defs?.ForEach(x =>
+            defs?.ForEach(async x =>
             {
                 if (x.Name == funcName)
                 {
-                    result = Class1.EvaluateFromFuncDef(x, globals);
+                    result = await Class1.EvaluateFromFuncDef(x, globals);
                 }
             });
             return result;
