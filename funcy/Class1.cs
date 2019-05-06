@@ -52,7 +52,7 @@ namespace funcy
         {
             //Code = "return Subtotal * (1 + (TaxPercentage / 100))",
             //Code = "public class CalculateTaxesOutput{public double Result {get;set;}} var x = Subtotal; Subtotal = 34545.00;return new CalculateTaxesOutput{ Result = x * (1 + (TaxPercentage / 100))};",
-            Code = "var x = Subtotal; Subtotal = 34545.00;return new funcy.CalculateTaxesOutput{ Result = x * (1 + (TaxPercentage / 100))};",
+            Code = "var x = Subtotal; \\r\\n Subtotal = 34545.00; \\r\\n return new funcy.CalculateTaxesOutput{ Result = x * (1 + (TaxPercentage / 100))};",
             Imports = new List<string>() { },
             InputClassDefinition = new CalculateTaxesInput
             {
